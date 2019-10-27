@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-// import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -19,33 +18,35 @@ import {
   SubscriptionButton,
 } from './styles';
 
+Icon.loadFont();
+
 export default function Meetup({ data, handle, type }) {
-  const dateFormatted = useMemo(
-    () =>
-      format(parseISO(data.date), "dd 'de' MMMM', às' HH'h'", { locale: pt }),
-    [data.date]
-  );
+  // const dateFormatted = useMemo(
+  //   () =>
+  //     format(parseISO(data.date), "dd 'de' MMMM', às' HH'h'", { locale: pt }),
+  //   [data.date]
+  // );
 
   return (
-    <Container>
-      <Banner source={{ uri: data.banner && data.banner.url }} />
+    <Container past={data.past}>
+      <Banner source={{ uri: data.File.id && data.File.url }} />
       <Content>
         <Title>{data.title}</Title>
         <TimeContent>
           <Icon name="event" size={14} color="rgba(0, 0, 0, 0.4)" />
-          <Time>{dateFormatted}</Time>
+          <Time>{data.date}</Time>
         </TimeContent>
         <LocationContent>
-          <Icon name="room" size={14} color="rgba(0, 0, 0, 0.4)" />
+          <Icon name="location-on" size={14} color="rgba(0, 0, 0, 0.4)" />
           <Location>{data.location}</Location>
         </LocationContent>
         <OrganizerContent>
           <Icon name="person" size={14} color="rgba(0, 0, 0, 0.4)" />
-          <Organizer>{data.organizer.name}</Organizer>
+          <Organizer>{data.User.name}</Organizer>
         </OrganizerContent>
         {!data.past && (
           <SubscriptionButton onPress={handle}>
-            {type === 'meetups' ? 'Realizar Inscrição' : 'Cancelar Inscrição'}
+            {type === 'subscribed' ? 'Cancel' : 'Subscribe'}
           </SubscriptionButton>
         )}
       </Content>

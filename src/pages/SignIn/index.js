@@ -18,30 +18,6 @@ import {
   SignLinkText,
 } from './styles';
 
-// const schema = Yup.object().shape({
-//   email: Yup.string()
-//     .email('E-mail inválido')
-//     .required('O E-mail é obrigatório'),
-//   password: Yup.string().required('A Senha é obrigatória'),
-// });
-
-// function handleSubmit() {
-//   schema
-//     .validate({ email, password }, { abortEarly: false })
-//     .then(function success() {
-//       dispatch(signInRequest(email, password));
-//     })
-//     .catch(function error(err) {
-//       Toast.show(err.errors[0], {
-//         duration: Toast.durations.SHORT,
-//         position: Toast.positions.BOTTOM,
-//         shadow: true,
-//         hideOnPress: true,
-//         animation: true,
-//       });
-//     });
-// }
-
 export default function SignIn({ navigation }) {
   const dispatch = useDispatch();
   const passwordRef = useRef();

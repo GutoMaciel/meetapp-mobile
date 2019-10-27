@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux';
 
 import createRouter from './routes';
 // import NavigationService from '~/services/navigation';
-
 // console.disableYellowBox = true;
-
 // Orientation.lockToPortrait();
 
 export default function App() {

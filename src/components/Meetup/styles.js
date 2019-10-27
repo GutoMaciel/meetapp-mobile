@@ -4,6 +4,8 @@ import Button from '~/components/Button';
 
 export const Container = styled.View`
   display: flex;
+
+  opacity: ${props => (props.past ? 0.6 : 1)};
 `;
 
 export const Title = styled.Text`
@@ -13,7 +15,7 @@ export const Title = styled.Text`
 `;
 
 export const Banner = styled.Image`
-  height: 150px;
+  height: 200px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 `;

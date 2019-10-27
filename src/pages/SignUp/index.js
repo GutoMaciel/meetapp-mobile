@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 import Background from '../../components/Background';
 
-import { signUpRequest } from '~/store/modules/auth/actions';
+import { signUpRequest } from '../../store/modules/auth/actions';
 
 import {
   Container,
@@ -17,14 +17,6 @@ import {
   SignLink,
   SignLinkText,
 } from './styles';
-
-// const schema = Yup.object().shape({
-//   name: Yup.string().required('O Nome é obrigatório'),
-//   email: Yup.string()
-//     .email('E-mail inválido')
-//     .required('O E-mail é obrigatório'),
-//   password: Yup.string().required('A Senha é obrigatória'),
-// });
 
 export default function SignUp({ navigation }) {
   const dispatch = useDispatch();
@@ -41,21 +33,6 @@ export default function SignUp({ navigation }) {
   function handleSubmit() {
     dispatch(signUpRequest(name, email, password));
   }
-  //     schema
-  //       .validate({ name, email, password }, { abortEarly: false })
-  //       .then(function success() {
-  //         dispatch(signUpRequest(name, email, password));
-  //       })
-  //       .catch(function error(err) {
-  //         Toast.show(err.errors[0], {
-  //           duration: Toast.durations.SHORT,
-  //           position: Toast.positions.BOTTOM,
-  //           shadow: true,
-  //           hideOnPress: true,
-  //           animation: true,
-  //         });
-  //       });
-  //   }
 
   return (
     <Background>
