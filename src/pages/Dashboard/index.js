@@ -107,7 +107,11 @@ export default function Dashboard() {
           data={meetups}
           keyExctractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <Meetup handle={() => handleSubscription(item.id)} data={item} />
+            <Meetup
+              handle={() => handleSubscription(item.id)}
+              data={item}
+              type="meetups"
+            />
           )}
         />
       </Container>

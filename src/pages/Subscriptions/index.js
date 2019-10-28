@@ -29,11 +29,12 @@ export default function Subscriptions() {
 
   async function handleCancel(id) {
     try {
-      await api.delete(`meetups/${id}/subscriptions`);
+      await api.delete(`/subscriptions/${id}`);
+      Alert.alert('Success', 'You was unsubscribed of this meetup');
 
-      setSubscriptions(subscriptions.filter(s => s.id !== id));
+      // setSubscriptions(subscriptions.filter(s => s.id !== id));
     } catch (err) {
-      Alert.alert('Error', err.response.data.error || 'Try again');
+      Alert.alert('Error', 'Try later');
     }
   }
 
@@ -47,7 +48,7 @@ export default function Subscriptions() {
           keyExtractor={subscription => String(subscription.id)}
           renderItem={({ item }) => (
             <Meetup
-              handle={handleCancel}
+              handle={() => handleCancel(item.id)}
               data={item.Meetup}
               type="subscriptions"
             />

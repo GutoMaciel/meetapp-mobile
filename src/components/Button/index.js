@@ -4,23 +4,23 @@ import PropTypes from 'prop-types';
 
 import { Container, Text } from './styles';
 
-export default function Button({ children, loading, ...rest }) {
+export default function Button({ children, ...rest }) {
   return (
     <Container {...rest}>
-      {loading ? (
+      {/* {loading ? (
         <ActivityIndicator size="small" color="#fff" />
-      ) : (
-        <Text>{children}</Text>
-      )}
+      ) : ( */}
+      <Text>{children}</Text>
+      {/* )} */}
     </Container>
   );
 }
 
 Button.propTypes = {
   children: PropTypes.string.isRequired,
-  loading: PropTypes.bool,
+  // loading: PropTypes.bool,
 };
 
-Button.defaultProps = {
-  loading: false,
-};
+// Button.defaultProps = {
+//   loading: false,
+// };

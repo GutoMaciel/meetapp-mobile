@@ -45,7 +45,7 @@ export default function Meetup({ data, handle, type }) {
         </OrganizerContent>
         {!data.past && (
           <SubscriptionButton onPress={handle}>
-            {type === 'subscribed' ? 'Cancel' : 'Subscribe'}
+            {type === 'meetups' ? 'Subscribe' : 'Cancel'}
           </SubscriptionButton>
         )}
       </Content>
