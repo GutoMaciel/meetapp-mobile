@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity, Alert } from 'react-native';
 import { format, subDays, addDays } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+// import pt from 'date-fns/locale/pt';
 
 import api from '~/services/api';
 
@@ -42,11 +42,10 @@ Icon.loadFont();
 export default function Dashboard() {
   const [meetups, setMeetups] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({});
 
-  const dateFormatted = useMemo(
-    () => format(date, "d 'de' MMMM", { locale: pt }),
-    [date]
-  );
+  const dateFormatted = useMemo(() => format(date, "d', ' MMMM"), [date]);
 
   function handlePrevDay() {
     setDate(subDays(date, 1));
@@ -57,14 +56,19 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    async function loadMeetups() {
-      const response = await api.get('meetups');
+    async function loadMeetups(pageNumber = 1) {
+      const response = await api.get('meetups', {
+        params: {
+          date,
+          page: pageNumber,
+        },
+      });
 
       setMeetups(response.data);
     }
 
     loadMeetups();
-  }, []);
+  }, [date]);
 
   async function handleSubscription(id) {
     try {
