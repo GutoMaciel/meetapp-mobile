@@ -68,7 +68,7 @@ export default function Dashboard() {
 
   async function handleSubscription(id) {
     try {
-      await api.post(`/subscriptions/${id}`);
+      await api.post(`meetups/${id}/subscriptions`);
 
       Alert.alert('Success', 'Inscrição realizada com Sucesso!');
     } catch (err) {

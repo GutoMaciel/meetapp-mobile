@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { Alert } from 'react-native';
+import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import PropTypes from 'prop-types';
 // import { format, subDays, addDays } from 'date-fns';
@@ -10,7 +10,7 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import Meetup from '~/components/Meetup';
 
-import { Container, List, Inscricao } from './styles';
+import { Container, List, Title } from './styles';
 
 Icon.loadFont();
 
@@ -27,28 +27,30 @@ export default function Subscriptions() {
     loadSubscriptions();
   }, []);
 
-  // async function handleCancel(id) {
-  //   try {
-  //     await api.delete(`/subscriptions/${id}`);
+  async function handleCancel(id) {
+    try {
+      await api.delete(`meetups/${id}/subscriptions`);
 
-  //     setSubscriptions(subscriptions.filter(s => s.id !== id));
-  //   } catch (err) {
-  //     Alert.alert(
-  //       'Erro!',
-  //       err.response.data.error || 'Erro ao realizar Inscrição!'
-  //     );
-  //   }
-  // }
+      setSubscriptions(subscriptions.filter(s => s.id !== id));
+    } catch (err) {
+      Alert.alert('Error', err.response.data.error || 'Try again');
+    }
+  }
 
   return (
     <Background>
       <Header />
       <Container>
+        <Title>My subscriptions</Title>
         <List
           data={subscriptions}
           keyExtractor={subscription => String(subscription.id)}
           renderItem={({ item }) => (
-            <Meetup handle={() => {}} data={item.Meetup} type="subscriptions" />
+            <Meetup
+              handle={handleCancel}
+              data={item.Meetup}
+              type="subscriptions"
+            />
           )}
         />
       </Container>

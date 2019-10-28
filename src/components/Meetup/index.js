@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+// import pt from 'date-fns/locale/pt';
 import PropTypes from 'prop-types';
 
 import {
@@ -21,11 +21,10 @@ import {
 Icon.loadFont();
 
 export default function Meetup({ data, handle, type }) {
-  // const dateFormatted = useMemo(
-  //   () =>
-  //     format(parseISO(data.date), "dd 'de' MMMM', às' HH'h'", { locale: pt }),
-  //   [data.date]
-  // );
+  const dateFormatted = useMemo(
+    () => format(parseISO(data.date), "dd',' MMMM',' HH'h'"),
+    [data.date]
+  );
 
   return (
     <Container past={data.past}>
@@ -34,7 +33,7 @@ export default function Meetup({ data, handle, type }) {
         <Title>{data.title}</Title>
         <TimeContent>
           <Icon name="event" size={14} color="rgba(0, 0, 0, 0.4)" />
-          <Time>{data.date}</Time>
+          <Time>{dateFormatted}</Time>
         </TimeContent>
         <LocationContent>
           <Icon name="location-on" size={14} color="rgba(0, 0, 0, 0.4)" />
