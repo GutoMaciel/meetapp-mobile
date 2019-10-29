@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import PropTypes from 'prop-types';
-// import { format, subDays, addDays } from 'date-fns';
 // import pt from 'date-fns/locale/pt';
+import { withNavigationFocus } from 'react-navigation';
+import PropTypes from 'prop-types';
 import api from '~/services/api';
 
 import Background from '~/components/Background';
@@ -14,18 +14,25 @@ import { Container, List, Title } from './styles';
 
 Icon.loadFont();
 
-export default function Subscriptions() {
+function Subscriptions({ isFocused }) {
   const [subscriptions, setSubscriptions] = useState([]);
 
+  // useEffect(() => {
+
+  //   loadSubscriptions();
+  // }, []);
+
+  async function loadSubscriptions() {
+    const response = await api.get('subscriptions');
+
+    setSubscriptions(response.data);
+  }
+
   useEffect(() => {
-    async function loadSubscriptions() {
-      const response = await api.get('subscriptions');
-
-      setSubscriptions(response.data);
+    if (isFocused) {
+      loadSubscriptions();
     }
-
-    loadSubscriptions();
-  }, []);
+  }, [isFocused]);
 
   async function handleCancel(id) {
     try {
@@ -65,3 +72,9 @@ Subscriptions.navigationOptions = {
     <Icon name="local-offer" size={20} color={tintColor} />
   ),
 };
+
+Subscriptions.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
+export default withNavigationFocus(Subscriptions);

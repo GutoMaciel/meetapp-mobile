@@ -3,6 +3,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableOpacity, Alert } from 'react-native';
 import { format, subDays, addDays } from 'date-fns';
 // import pt from 'date-fns/locale/pt';
+import { withNavigationFocus } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
@@ -39,7 +41,7 @@ Icon.loadFont();
 //   }
 // }
 
-export default function Dashboard() {
+function Dashboard({ isFocused }) {
   const [meetups, setMeetups] = useState([]);
   const [date, setDate] = useState(new Date());
   const [page, setPage] = useState(1);
@@ -54,21 +56,27 @@ export default function Dashboard() {
   function handleNextDay() {
     setDate(addDays(date, 1));
   }
+  async function loadMeetups(pageNumber = 1) {
+    const response = await api.get('meetups', {
+      params: {
+        date,
+        page: pageNumber,
+      },
+    });
+
+    setMeetups(response.data);
+  }
+
+  // useEffect(() => {
+
+  //   loadMeetups();
+  // }, [date]);
 
   useEffect(() => {
-    async function loadMeetups(pageNumber = 1) {
-      const response = await api.get('meetups', {
-        params: {
-          date,
-          page: pageNumber,
-        },
-      });
-
-      setMeetups(response.data);
+    if (isFocused) {
+      loadMeetups();
     }
-
-    loadMeetups();
-  }, [date]);
+  }, [isFocused, date, loadMeetups]);
 
   async function handleSubscription(id) {
     try {
@@ -129,3 +137,9 @@ Dashboard.navigationOptions = {
     <Icon name="format-list-bulleted" size={20} color={tintColor} />
   ),
 };
+
+Dashboard.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
+
+export default withNavigationFocus(Dashboard);
